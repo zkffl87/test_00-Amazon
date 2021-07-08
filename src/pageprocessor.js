@@ -3,7 +3,7 @@
 const Apify = require("apify");
 const { log } = Apify.utils;
 
- 
+
 // 사용자 전역 변수.
 const timestamp = new Date().getTime();
 const urlBox = [];
@@ -19,6 +19,7 @@ Number.prototype.zeroPad = function() {
 // 사용자 전역 변수.
 
 log.setLevel(log.LEVELS.OFF);
+console.log("테스트1111111111111");
 
 /**
  * ProcessItems: Process page items
@@ -100,7 +101,7 @@ async function ProcessItems() {
                         var itemFromTheManufacturer = "";
                         var html = $('body').html();
 
-                        // 제트앤에스 추가 2020-07-14  추가 
+                        // 제트앤에스 추가 2020-07-14  추가
                         if (!itemImage) {
                             itemImage = $("#imgBlkFront").attr("src");
                         }
@@ -110,32 +111,32 @@ async function ProcessItems() {
                             //html = itemProductDetails;
                         }
 
-                        // 제트앤에스 추가 2020-07-15  상세설명 추가 
+                        // 제트앤에스 추가 2020-07-15  상세설명 추가
                         if (!itemProductDetails.length) {
                             itemProductDetails = $('td[class="bucket"] div[class="content"]').text();
                             //html = itemProductDetails;
                         }
 
 
-                        // 제트앤에스 추가 2020-04-13  상세설명 추가 
+                        // 제트앤에스 추가 2020-04-13  상세설명 추가
                         var ItemDescription_ty1 = ItemDescription_ty2 = ItemDescription_ty3 = ItemDescription_ty4 = "";
                         if ($("#feature-bullets .a-unordered-list li").length > 0) {
 
                             $("#feature-bullets .a-unordered-list li").not("#replacementPartsFitmentBullet").each(function() {
                                 var desc_cont = $(this).text().trim();
-                                ItemDescription_ty1 += "<p>" + desc_cont + "</p>"; //상세설명1                              
+                                ItemDescription_ty1 += "<p>" + desc_cont + "</p>"; //상세설명1
                             });
 
                         }
-                        // 제트앤에스 추가 2020-04-13  상세설명 추가 
+                        // 제트앤에스 추가 2020-04-13  상세설명 추가
                         if ($("#aplus_feature_div div.aplus-v2").length > 0) {
-                            ItemDescription_ty2 = $("#aplus_feature_div div.aplus-v2").html(); // 상세설명 2       
+                            ItemDescription_ty2 = $("#aplus_feature_div div.aplus-v2").html(); // 상세설명 2
                         }
                         ItemDescription_ty3 = "<div>" + $("#productDescription p").text() + "</div>";
 
-                        // 제트앤에스 추가 2020-07-14  상세설명 추가 
+                        // 제트앤에스 추가 2020-07-14  상세설명 추가
                         if ($("#bookDesc_iframe").length > 0) {
-                            ItemDescription_ty4 = $("#bookDesc_iframe").contents().find("body").html(); // 상세설명 4       
+                            ItemDescription_ty4 = $("#bookDesc_iframe").contents().find("body").html(); // 상세설명 4
                         }
 
                         var itemDescription = "<div>" + ItemDescription_ty1 + "</div>" + "<div>" + ItemDescription_ty2 + "</div>" + "<div>" + ItemDescription_ty3 + "</div>" + "<div>" + ItemDescription_ty4 + "</div>";
@@ -165,7 +166,7 @@ async function ProcessItems() {
 
 
 
-                        //제트앤에스 추가 2020-07-14  추가 
+                        //제트앤에스 추가 2020-07-14  추가
                         if (!itemPrice) {
                             itemPrice = $("#priceblock_saleprice").text().replace(/\$|￥|,/g, '').replace(/\$|￥|,/g, '').trim();
                         }
@@ -174,7 +175,7 @@ async function ProcessItems() {
                             itemPrice = $("#newBuyBoxPrice").text().replace(/\$|￥|,/g, '').replace(/\$|￥|,/g, '').trim();
                         }
 
-                        // 제트앤에스 추가 2020-07-14  추가 
+                        // 제트앤에스 추가 2020-07-14  추가
                         if (!itemPrice) {
                             itemPrice = $('span[class="a-size-medium a-color-price header-price"]').text().replace(/\$|￥|,/g, '').replace(/(?:\r\n|\r|\n)/gm, '').trim();
                         }
@@ -185,7 +186,7 @@ async function ProcessItems() {
                             itemPrice = $('.a-text-center span[class="a-color-price"]').text().replace(/\$|￥|,/g, '').trim();
                         }
 
-                        // 제트앤에스 추가 기현 2020-08-19 추가 
+                        // 제트앤에스 추가 기현 2020-08-19 추가
                         if (!itemPrice && $("#priceblock_dealprice").length > 0) {
                             itemPrice = $("#priceblock_dealprice").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
                         }
@@ -194,7 +195,7 @@ async function ProcessItems() {
                             itemPrice = $("#price").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
                         }
 
-                        // 제트앤에스 추가 기현 2020-08-19 추가 
+                        // 제트앤에스 추가 기현 2020-08-19 추가
                         if (!itemPrice && $("#price_inside_buybox").length > 0) {
                             itemPrice = $("#price_inside_buybox").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
                         }
@@ -209,7 +210,7 @@ async function ProcessItems() {
                             itemPrice = $("#olp_feature_div .a-color-price").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
                         }
 
-                        // 제트앤에스 추가 허웅 2020-09-01  
+                        // 제트앤에스 추가 허웅 2020-09-01
                         itemPrice = itemPrice.replace("From ", "").replace("US", "");
 
                         var itemRetailPrice = $(".priceBlockStrikePriceString").length > 0 ? $(".priceBlockStrikePriceString").text().replace(/\$|￥|,/g, '').trim() : itemPrice; //Price before discount
@@ -312,7 +313,7 @@ async function ProcessItems() {
                             }
                         }
 
-                        
+
 
                         // '梱包サイズ:',
                         // 'Amazon.co.jp での取り扱い開始日:',
@@ -397,7 +398,7 @@ async function ProcessItems() {
                             });
                         }
 
-                        // 제트앤에스 기현 2020-08-19 추가 
+                        // 제트앤에스 기현 2020-08-19 추가
                         if (!itemAsin || itemAsin == ":") {
                             var dataAsin = $("#cerberus-data-metrics").attr("data-asin");
 
@@ -480,7 +481,7 @@ async function ProcessItems() {
                         var option_type_ck = false;
 
 
-                        //옵션 
+                        //옵션
                         $("form#twister .a-section").each(function(i) {
                             var sum_opt_vls = [];
 
@@ -524,7 +525,7 @@ async function ProcessItems() {
                             } else {
 
                                 var x = 0;
-                                if (option_vls_obj.length > 0) { // 옵션 use 
+                                if (option_vls_obj.length > 0) { // 옵션 use
 
                                     if (opt_name) option_arr[opt_name] = [];
 
@@ -544,7 +545,7 @@ async function ProcessItems() {
                                         }
 
                                         var opt_itemPrice = "";
-                                        var defaultasin = $(this).attr('data-defaultasin'); // id 값 or  있으면 재고있 없으면 재고없                    
+                                        var defaultasin = $(this).attr('data-defaultasin'); // id 값 or  있으면 재고있 없으면 재고없
                                         sum_opt_vls.push(opt_vls);
                                         option_arr[opt_name][x] = opt_vls;
 
@@ -562,7 +563,7 @@ async function ProcessItems() {
                                 }
                             }
 
-                            // 옵션 정보 매핑 
+                            // 옵션 정보 매핑
                             if (sum_opt_vls.length > 0) {
                                 ItemOption_cont.push({
                                     [opt_name]: sum_opt_vls.join(',')
@@ -606,7 +607,7 @@ async function ProcessItems() {
                             }
                         }
 
-                        // 옵션데이터 중복나오는거 손봐야됨. 
+                        // 옵션데이터 중복나오는거 손봐야됨.
                         ItemOptionData = ItemOptionData.filter(function(a) {
                             var key = Object.keys(a).map(function(k) { return a[k]; }).join('|');
                             if (!this[key]) {
@@ -630,7 +631,7 @@ async function ProcessItems() {
                             ShippingInfo: amamzon_type == "amazonfresh" ? "Amazon Fresh" : "Amazon Prime",
                             StandardImage: itemImage,
                             OtherImages: itemImages, //  sub image - 작은이미지 여러개
-                            ItemDescription: itemDescription, // 상세설명        
+                            ItemDescription: itemDescription, // 상세설명
                             //ItemOption: additionalOption, // 옵션 표현.
                             ItemOption: ItemOption, // 옵션 표현.
                             //ItemOption: [], // 옵션 표현.
@@ -746,10 +747,10 @@ async function ProcessItems() {
                 var second = today.getSeconds();
                 var ntime = year + '' + month.zeroPad() + '' + date.zeroPad() + '-' + hour + '' + minute + '' + second;
 
-                // 셀렉박스 클릭 
+                // 셀렉박스 클릭
                 // 옵션 클릭
                 // 가격 가져옴
-                // 셀렉박스 클릭 
+                // 셀렉박스 클릭
                 // ...
                 // ------------- 페이지 로딩 확인 -------------
                 for (var d = 0; d < 50; d++) {
@@ -764,7 +765,7 @@ async function ProcessItems() {
 
                 await Apify.utils.puppeteer.injectJQuery(page);
 
-                
+
                 const feature_div = await page.$('#alternativeOfferEligibilityMessaging_feature_div'); // 로딩바..
 
                 // ---------------------------------- LV 1 ----------------------------------  //
@@ -805,7 +806,7 @@ async function ProcessItems() {
                 // 로딩바구현
                 async function _loading_() {
 
-                    for (var d = 0; d < 15; d++) { // 로딩바 체크 
+                    for (var d = 0; d < 15; d++) { // 로딩바 체크
 
                         await page.waitFor(100);
 
@@ -1166,7 +1167,7 @@ async function ProcessItems() {
 
                                     //await dropdown.evaluate(dropdown => dropdown.click()); // 셀렉트 박스가 펼쳐짐.
                                     await page.waitForSelector('#native_dropdown_selected_size_name_' + i, { timeout: 30000 });
-                                    const subdropdown = await page.$('#native_dropdown_selected_size_name_' + i); // 순서대로 옵션 원소 추출 
+                                    const subdropdown = await page.$('#native_dropdown_selected_size_name_' + i); // 순서대로 옵션 원소 추출
 
                                     if (optionDebug) console.log("area_4 -> subdropdown -> " + (subdropdown != null ? 1 : 0));
                                     opt_match = await page.evaluate(subdropdown => subdropdown.textContent, subdropdown); // 현재 옵션 이름 추출
@@ -1234,7 +1235,7 @@ async function ProcessItems() {
 
                                     ///
 
-                                } // end for 
+                                } // end for
 
                                 // 초기화 ------
                                 if (optionDebug) console.log("area_6 -> init ok");
@@ -1406,7 +1407,7 @@ async function ProcessItems() {
                                                 if (optionDebug) console.log(`area_3 -> ${op_name} is Available `);
                                                 await declarative.evaluate(declarative => declarative.click()); // 컬러 클릭.
 
-                                                await _loading_(); // 로딩 체크.            
+                                                await _loading_(); // 로딩 체크.
 
 
                                             } else {
@@ -1488,7 +1489,7 @@ async function ProcessItems() {
                                     // 정상 작업건
                                     //await dropdown.evaluate(dropdown => dropdown.click()); // 셀렉트 박스가 펼쳐짐.
                                     await page.waitForSelector('#native_dropdown_selected_team_name_' + i, { timeout: 30000 });
-                                    const subdropdown = await page.$('#native_dropdown_selected_team_name_' + i); // 순서대로 옵션 원소 추출 
+                                    const subdropdown = await page.$('#native_dropdown_selected_team_name_' + i); // 순서대로 옵션 원소 추출
 
                                     if (optionDebug) console.log("area_4 -> subdropdown -> " + (subdropdown != null ? 1 : 0));
                                     opt_match = await page.evaluate(subdropdown => subdropdown.textContent, subdropdown); // 현재 옵션 이름 추출
@@ -1686,11 +1687,11 @@ async function ProcessItems() {
                 // if (request.userData.shippingtype) {
                 //     //data[0].ShippingType = request.userData.shippingtype + " " + request.userData.shippingtype;
                 // }
-                // Store the results to the default dataset. 
+                // Store the results to the default dataset.
                 console.log(`ItemTitle ==>  ${data[0].ItemTitle} ..`);
-      
+
                 await Apify.pushData(data);
-               
+
 
 
 
@@ -1719,7 +1720,7 @@ async function ProcessItems() {
 
 /**
  * Process Sub Categories
- * @param {string} urls 
+ * @param {string} urls
  */
 async function ProcessSubCategory(urls, getPaging) {
     for (const url of urls) {
@@ -1758,7 +1759,7 @@ async function ProcessPagedUrls() {
 
 /**
  * Process phrases
- * @param {string} startUrl 
+ * @param {string} startUrl
  */
 async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
 
@@ -1891,7 +1892,7 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
             var country_code = "us"; // 디폴트 미국
 
             if (country_code_tmp['3'] == 'jp') {
-                country_code = country_code_tmp['3']; // 2020-08-24 기현  JP 일본 아마존 코드 뽑기.. 근대 이방법 완벽하지 않음..  다른 국가 추가 될시 코드 수정 되야 하는 부분임 ..  추후 다른 국가 추가 될시  url로 어느 국가인지 잡을수 있는 코드 필요 
+                country_code = country_code_tmp['3']; // 2020-08-24 기현  JP 일본 아마존 코드 뽑기.. 근대 이방법 완벽하지 않음..  다른 국가 추가 될시 코드 수정 되야 하는 부분임 ..  추후 다른 국가 추가 될시  url로 어느 국가인지 잡을수 있는 코드 필요
             }
 
             // // =================================
@@ -1919,18 +1920,18 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
 
                     // Amazon プライム ---> 아마존 프라임
 
-                    // 2020-08-24  기현 아마존  shiptype 통일 - 
-                    if (itemShippingType == 'Amazon プライム') { // 일본  
+                    // 2020-08-24  기현 아마존  shiptype 통일 -
+                    if (itemShippingType == 'Amazon プライム') { // 일본
                         itemShippingType = "Amazon Prime";
                     }
 
-                    //2020-04-11 클라이언트 요청사항. 프라임만 넣기. // 2020-04-16 클라이언트 요청사항 아마존 일반상품 fresh 상품 구분 
+                    //2020-04-11 클라이언트 요청사항. 프라임만 넣기. // 2020-04-16 클라이언트 요청사항 아마존 일반상품 fresh 상품 구분
                     if (amamzon_type[0] == "amazonfresh") {
                         data.push({ Url: itemUrl, ShippingType: itemShippingType });
                     } else {
 
                         //2020-10-05 기현 주석  ※ 정승주님 요청 prime 제품 아니여도 모두 수집되도록 요청
-                        //if (itemShippingType == "Amazon Prime") {                            
+                        //if (itemShippingType == "Amazon Prime") {
                         data.push({ Url: itemUrl, ShippingType: itemShippingType });
                         //}
 
@@ -1952,7 +1953,7 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
             //     if (!itemShippingType) { itemShippingType = ""; }
 
             //     data.push({Url: itemUrl, ShippingType: itemShippingType});
-            // });    
+            // });
 
             // // =================================
             // if (templateType == "V2") {
@@ -1960,7 +1961,7 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
 
             //     $itemRowContainer.each(function(nodeCount, itemNode) {
             //         var $urlnode = $(itemNode).find("span[data-component-type='s-product-image'] a");
-            //         var itemUrl = $urlnode.attr("href"); 
+            //         var itemUrl = $urlnode.attr("href");
             //         var itemShippingType = "";
 
             //         data.push({Url: itemUrl, ShippingType: itemShippingType});
@@ -1975,20 +1976,20 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
             //         if (!itemShippingType) { itemShippingType = ""; }
 
             //         data.push({Url: itemUrl, ShippingType: itemShippingType});
-            //     });    
+            //     });
             // }
             // // =================================
 
-            // 2020-08-24  기현 추가 나라별 url 
+            // 2020-08-24  기현 추가 나라별 url
             var amazon_url_list = { "us": "https://www.amazon.com", "jp": "https://www.amazon.co.jp" };
 
- 
+
             for (const itemData of data) { // # 상품 URL 리스팅 입력.
 
                 //var prdUrl = "https://www.amazon.com" + itemData.Url;
-                var prdUrl = amazon_url_list[country_code] + itemData.Url; //  2020-08-24  기현  변경 
+                var prdUrl = amazon_url_list[country_code] + itemData.Url; //  2020-08-24  기현  변경
 
-                // 중복제거 하는 아이템을 그냥 만들자 .... 
+                // 중복제거 하는 아이템을 그냥 만들자 ....
                 // const url = new URL(prdUrl);
                 // url.searchParams.set("qid", timestamp);
                 // url.searchParams.set("sr", "");
@@ -2002,13 +2003,13 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
                      await requestQueue.addRequest(new Apify.Request({ url: prdUrl, userData: { sourceUrl: prdUrl, pagetype: "ITEM_PAGE", shippingtype: itemShippingType, "amamzon_type": amamzon_type[0], npage: npage ? npage : 1 } }));
                 }
             }
-    
-       
+
+
 
             // Paging 리스팅 입력.
             if (getPaging) {
                 var page_arr = pagenum.split('-');
-                if (page_arr[0].toLowerCase() != "auto" || !page_arr[0]) { // no start pages  Will end page go 
+                if (page_arr[0].toLowerCase() != "auto" || !page_arr[0]) { // no start pages  Will end page go
                     var lastpgNode = $(".a-pagination .a-last").prev();
                     var stpg = 1;
                     var lastpg = lastpgNode.text();
@@ -2024,7 +2025,7 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
                 }
             }
 
-            /* ZNS 
+            /* ZNS
             if (getPaging) {
                 var lastpgNode = $(".a-pagination .a-last").prev();
                 var lastpg = lastpgNode.text();
@@ -2055,7 +2056,7 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
 
 /**
  * Process categories
- * @param {string} startUrl 
+ * @param {string} startUrl
  */
 async function ProcessCategories(startUrl) {
     const env = await Apify.getEnv()
