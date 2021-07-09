@@ -5,7 +5,7 @@
 const Apify = require('apify');
 const app = require('./src/pageprocessor');
 const cheerio = require('cheerio');
- 
+
 Apify.main(async() => {
 
 
@@ -13,14 +13,18 @@ Apify.main(async() => {
     //return;
 
     const input = await Apify.getValue('INPUT');
-
+    console.log(input);
     if (!input || !input.url) throw new Error('INPUT must contain url and searchPhrase');
-
+    console.log("inputurl:::"+input.url);
     global.inputData = await Apify.getInput(); // 필수
- 
+    console.log(global);
+    console.log(global.inputData);
+
 
     var includepaging = input.includepaging;
+    console.log("includepaging::"+includepaging);
     var includepagenum = input.pages;
+    console.log("includepagenum:::"+includepagenum);
 
     var str = input.url;
     var res = str.match(/_KEYWORD_/g);
@@ -28,7 +32,7 @@ Apify.main(async() => {
 
     if (res) { // AMAMZON FRESH
         var inputurl = str.replace("_KEYWORD_", encodeURIComponent(input.searchPhrase));
-    } else { // NOMAL 
+    } else { // NOMAL
         var inputurl = input.url + encodeURIComponent(input.searchPhrase);
     }
 
@@ -36,7 +40,7 @@ Apify.main(async() => {
     // prime 검색 get 값 ( 아마존 사이트의 left menu 검색필터를 뜻함)
     // &rh=p_85%3A2470955011 --> 미국 .com
     // &rh=p_76%3A2227292051 --> 일본 .jp
-    if (input.Is_Prime == true) { // 아마존 프라임 검색 유무 컨트롤 
+    if (input.Is_Prime == true) { // 아마존 프라임 검색 유무 컨트롤
 
         if (inputurl.match('www.amazon.co.jp') !== null) { // 일본 .jp
             var addurl = "&rh=p_76%3A2227292051";
@@ -48,8 +52,8 @@ Apify.main(async() => {
 
     inputurl = inputurl + addurl;
 
-
-
+    console.log(inputurl);
+    return false;
     //if(input.targeturl) {
     //inputurl = "https://www.naver.com";
 
@@ -72,6 +76,6 @@ Apify.main(async() => {
         throw new Error('INPUT must contain searchPhrase');
     }
 
- 
+
 
 });
