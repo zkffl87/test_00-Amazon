@@ -61,7 +61,8 @@ async function ProcessItems() {
             }
         },
         handlePageFunction: async({ request, page }) => {
-
+            console.log(request);
+            console.log(page);
 
             if (request.userData.pagetype == "ITEM_PAGE") {
                 console.log(`Processing page ${request.url} ..`);
@@ -636,7 +637,8 @@ async function ProcessItems() {
                             ItemTitle: itemName,
                             ItemQty: 200,
                             //ItemStatus: itemPrice && itemRetailPrice ? 'On Sale' : 'Sold Out',
-                            ItemStatus: itemSalesStatus == 'Currently unavailable.' ? 'Sold Out' : 'On Sale',
+                            //ItemStatus: itemSalesStatus == 'Currently unavailable.' ? 'Sold Out' : 'On Sale',
+                            ItemStatus: (itemSalesStatus.indexOf("Currently unavailable") == -1)?'Sold Out' : 'On Sale',
                             BrandName: itemBrand,
                             ItemPrice: itemPrice,
                             ItemRetailPrice: itemRetailPrice,
