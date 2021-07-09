@@ -19,12 +19,12 @@ Number.prototype.zeroPad = function() {
 // 사용자 전역 변수.
 
 log.setLevel(log.LEVELS.OFF);
-console.log("테스트1111111111111");
 
 /**
  * ProcessItems: Process page items
  */
 async function ProcessItems() {
+    console.log("테스트22222");
 
     const requestQueue = await Apify.openRequestQueue();
     var optionDebug = false; // ZNS test
@@ -168,51 +168,63 @@ async function ProcessItems() {
 
                         //제트앤에스 추가 2020-07-14  추가
                         if (!itemPrice) {
+                            console.log("itemPrice1");
                             itemPrice = $("#priceblock_saleprice").text().replace(/\$|￥|,/g, '').replace(/\$|￥|,/g, '').trim();
                         }
 
                         if (!itemPrice) {
+                          console.log("itemPrice2");
                             itemPrice = $("#newBuyBoxPrice").text().replace(/\$|￥|,/g, '').replace(/\$|￥|,/g, '').trim();
                         }
 
                         // 제트앤에스 추가 2020-07-14  추가
                         if (!itemPrice) {
+                          console.log("itemPrice3");
                             itemPrice = $('span[class="a-size-medium a-color-price header-price"]').text().replace(/\$|￥|,/g, '').replace(/(?:\r\n|\r|\n)/gm, '').trim();
                         }
                         if (!itemPrice) {
+                          console.log("itemPrice4");
                             itemPrice = $('.a-size-medium span[class="a-color-price"]').text().replace(/\$|￥|,/g, '').trim();
                         }
                         if (!itemPrice) {
+                          console.log("itemPrice5");
                             itemPrice = $('.a-text-center span[class="a-color-price"]').text().replace(/\$|￥|,/g, '').trim();
                         }
 
                         // 제트앤에스 추가 기현 2020-08-19 추가
                         if (!itemPrice && $("#priceblock_dealprice").length > 0) {
+                          console.log("itemPrice6");
                             itemPrice = $("#priceblock_dealprice").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
                         }
 
                         if (!itemPrice && $("#price").length > 0) {
+                          console.log("itemPrice7");
                             itemPrice = $("#price").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
                         }
 
                         // 제트앤에스 추가 기현 2020-08-19 추가
                         if (!itemPrice && $("#price_inside_buybox").length > 0) {
+                          console.log("itemPrice8");
                             itemPrice = $("#price_inside_buybox").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
                         }
 
                         // 제트앤에스 추가 기현 2020-11-22
                         if (!itemPrice && $("#comparison_price_row .comparison_baseitem_column").length > 0) {
+                          console.log("itemPrice29");
                             itemPrice = $("#comparison_price_row .comparison_baseitem_column").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
                         }
 
                         // 제트앤에스 추가 허웅 2020-11-23
                         if (!itemPrice && $("#olp_feature_div .a-color-price").length > 0) {
+                          console.log("itemPrice10");
                             itemPrice = $("#olp_feature_div .a-color-price").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
+
                         }
 
                         // 제트앤에스 추가 허웅 2020-09-01
                         itemPrice = itemPrice.replace("From ", "").replace("US", "");
 
+                        console.log("itemPrice::::"+itemPrice);
                         var itemRetailPrice = $(".priceBlockStrikePriceString").length > 0 ? $(".priceBlockStrikePriceString").text().replace(/\$|￥|,/g, '').trim() : itemPrice; //Price before discount
 
                         // 제트앤에스 추가 허웅 2020-11-22
@@ -1762,11 +1774,12 @@ async function ProcessPagedUrls() {
  * @param {string} startUrl
  */
 async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
-
+    console.log("테스트1111@1");
 
 
     const env = await Apify.getEnv()
-
+    console.log("env::");
+    console.log(env);
 
     const input = [{
         "url": startUrl,
@@ -1775,17 +1788,18 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36"
         }
     }]
-
+    console.log(input);
     //console.log("npage" + npage);
 
 
 
     const requestQueue = await Apify.openRequestQueue();
+    console.log(requestQueue);
     const requestList = new Apify.RequestList({
         sources: input,
     });
+    console.log(requestList);
     await requestList.initialize();
-
 
     const crawler = new Apify.CheerioCrawler({
         requestList,

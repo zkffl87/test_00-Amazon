@@ -53,7 +53,6 @@ Apify.main(async() => {
     inputurl = inputurl + addurl;
 
     console.log(inputurl);
-    return false;
     //if(input.targeturl) {
     //inputurl = "https://www.naver.com";
 
