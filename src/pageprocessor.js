@@ -664,7 +664,7 @@ async function ProcessItems() {
                                 //test: test
 
                         });
-
+                        console.log(data);
                         return data;
                     }
 
