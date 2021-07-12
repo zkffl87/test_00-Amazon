@@ -647,7 +647,9 @@ async function ProcessItems() {
                             //ItemStatus: itemPrice && itemRetailPrice ? 'On Sale' : 'Sold Out',
                             //ItemStatus: itemSalesStatus == 'Currently unavailable.' ? 'Sold Out' : 'On Sale',
                             //ItemStatus: (itemSalesStatus.indexOf("Currently unavailable") == -1)?'On Sale1' : 'Sold Out2',
-                            ItemStatus: itemSalesStatusType == 'N'?'Sold Out' : 'On Sale',
+                            //ItemStatus: itemSalesStatusType == 'N'?'Sold Out' : 'On Sale',
+                            ItemStatus: itemSalesStatus,
+
 
                             BrandName: itemBrand,
                             ItemPrice: itemPrice,
