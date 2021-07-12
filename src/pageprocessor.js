@@ -150,9 +150,17 @@ async function ProcessItems() {
                         );
 
 
-
+                        var itemSalesStatusType = "";
                         if ($("#availability span").length > 0) {
                             itemSalesStatus = $("#availability span").text().trim();
+
+                            if(itemSalesStatus.indexOf("Currently unavailable") == -1){
+                              //판매상태
+                              itemSalesStatusType = "Y";
+                            }else{
+                              //판매중단 상태
+                              itemSalesStatusType = "N";
+                            }
                         }
 
                         if ($("#priceblock_ourprice").length > 0) {
@@ -638,7 +646,9 @@ async function ProcessItems() {
                             ItemQty: 200,
                             //ItemStatus: itemPrice && itemRetailPrice ? 'On Sale' : 'Sold Out',
                             //ItemStatus: itemSalesStatus == 'Currently unavailable.' ? 'Sold Out' : 'On Sale',
-                            ItemStatus: (itemSalesStatus.indexOf("Currently unavailable") == -1)?'On Sale' : 'Sold Out',
+                            //ItemStatus: (itemSalesStatus.indexOf("Currently unavailable") == -1)?'On Sale1' : 'Sold Out2',
+                            ItemStatus: itemSalesStatusType == 'Y'?'On Sale1' : 'Sold Out2',
+
                             BrandName: itemBrand,
                             ItemPrice: itemPrice,
                             ItemRetailPrice: itemRetailPrice,
@@ -664,7 +674,6 @@ async function ProcessItems() {
                                 //test: test
 
                         });
-                        console.log(data);
                         return data;
                     }
 
