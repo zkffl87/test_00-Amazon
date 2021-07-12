@@ -60,9 +60,10 @@ async function ProcessItems() {
                 errorScoreDecrement: 0,
             }
         },
-        handlePageFunction: async({ request, page }) => {
+        handlePageFunction: async({ request, page , html }) => {
             console.log(request);
-            console.log(page);
+            //console.log(page);
+            console.log(html);
 
             if (request.userData.pagetype == "ITEM_PAGE") {
                 console.log(`Processing page ${request.url} ..`);
@@ -70,9 +71,13 @@ async function ProcessItems() {
 
                 // A function to be evaluated by Puppeteer within the browser context.
                 const pageFunction = (context) => {
+                    const $ = context.jQuery;
+
 
                     function ProcessData() {
                         const data = [];
+
+                        var testA = context.querySelector('#availability span').innerText;
 
                         var itemName = $("#productTitle").text();
 
@@ -679,6 +684,7 @@ async function ProcessItems() {
 
                             ItemStatus: itemSalesStatusType == 'N'?'Sold Out' : 'On Sale',
 
+                            ItemTestA: testA,
                             ItemStatusTest1: itemSalesStatus,
 
                             ItemPriceTest1:priceTest1,
