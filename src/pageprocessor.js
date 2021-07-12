@@ -163,13 +163,30 @@ async function ProcessItems() {
                             }
                         }
 
+
+                        var priceTest1 = "";
+                        var priceTest2 = "";
+                        var priceTest3 = "";
+                        var priceTest4 = "";
+                        var priceTest5 = "";
+                        var priceTest6 = "";
+                        var priceTest7 = "";
+                        var priceTest8 = "";
+                        var priceTest9 = "";
+                        var priceTest10 = "";
+                        var priceTest11 = "";
+                        var priceTest12 = "";
+                        var priceTest13 = "";
+
                         if ($("#priceblock_ourprice").length > 0) {
                             var tmp = $("#priceblock_ourprice").text();
                             if (tmp.match("-") !== null) {
                                 var tmp2 = tmp.split("-");
                                 itemPrice = tmp2['1'].replace(/\$|￥|,|From/g, '').trim();
+                                priceTest1 = itemPrice;
                             } else {
                                 itemPrice = tmp.replace(/\$|￥|,|From/g, '').trim();
+                                priceTest2 = itemPrice;
                             }
                         }
 
@@ -179,61 +196,72 @@ async function ProcessItems() {
                         if (!itemPrice) {
                             console.log("itemPrice1");
                             itemPrice = $("#priceblock_saleprice").text().replace(/\$|￥|,/g, '').replace(/\$|￥|,/g, '').trim();
+                            priceTest3 = itemPrice;
                         }
 
                         if (!itemPrice) {
                           console.log("itemPrice2");
                             itemPrice = $("#newBuyBoxPrice").text().replace(/\$|￥|,/g, '').replace(/\$|￥|,/g, '').trim();
+                            priceTest4 = itemPrice;
                         }
 
                         // 제트앤에스 추가 2020-07-14  추가
                         if (!itemPrice) {
                           console.log("itemPrice3");
                             itemPrice = $('span[class="a-size-medium a-color-price header-price"]').text().replace(/\$|￥|,/g, '').replace(/(?:\r\n|\r|\n)/gm, '').trim();
+                            priceTest5 = itemPrice;
                         }
                         if (!itemPrice) {
                           console.log("itemPrice4");
                             itemPrice = $('.a-size-medium span[class="a-color-price"]').text().replace(/\$|￥|,/g, '').trim();
+                            priceTest6 = itemPrice;
                         }
                         if (!itemPrice) {
                           console.log("itemPrice5");
                             itemPrice = $('.a-text-center span[class="a-color-price"]').text().replace(/\$|￥|,/g, '').trim();
+                            priceTest7 = itemPrice;
                         }
 
                         // 제트앤에스 추가 기현 2020-08-19 추가
                         if (!itemPrice && $("#priceblock_dealprice").length > 0) {
                           console.log("itemPrice6");
                             itemPrice = $("#priceblock_dealprice").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
+                            priceTest8 = itemPrice;
                         }
 
                         if (!itemPrice && $("#price").length > 0) {
                           console.log("itemPrice7");
                             itemPrice = $("#price").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
+                            priceTest9 = itemPrice;
                         }
 
                         // 제트앤에스 추가 기현 2020-08-19 추가
                         if (!itemPrice && $("#price_inside_buybox").length > 0) {
                           console.log("itemPrice8");
                             itemPrice = $("#price_inside_buybox").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
+                            priceTest10 = itemPrice;
                         }
 
                         // 제트앤에스 추가 기현 2020-11-22
                         if (!itemPrice && $("#comparison_price_row .comparison_baseitem_column").length > 0) {
                           console.log("itemPrice29");
                             itemPrice = $("#comparison_price_row .comparison_baseitem_column").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
+                            priceTest11 = itemPrice;
                         }
 
                         // 제트앤에스 추가 허웅 2020-11-23
                         if (!itemPrice && $("#olp_feature_div .a-color-price").length > 0) {
                           console.log("itemPrice10");
                             itemPrice = $("#olp_feature_div .a-color-price").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
+                            priceTest12 = itemPrice;
 
                         }
 
                         // 제트앤에스 추가 허웅 2020-09-01
                         itemPrice = itemPrice.replace("From ", "").replace("US", "");
+                        priceTest13 = itemPrice;
 
-                        console.log("itemPrice::::"+itemPrice);
+                        //console.log("itemPrice::::"+itemPrice);
                         var itemRetailPrice = $(".priceBlockStrikePriceString").length > 0 ? $(".priceBlockStrikePriceString").text().replace(/\$|￥|,/g, '').trim() : itemPrice; //Price before discount
 
                         // 제트앤에스 추가 허웅 2020-11-22
@@ -647,9 +675,25 @@ async function ProcessItems() {
                             //ItemStatus: itemPrice && itemRetailPrice ? 'On Sale' : 'Sold Out',
                             //ItemStatus: itemSalesStatus == 'Currently unavailable.' ? 'Sold Out' : 'On Sale',
                             //ItemStatus: (itemSalesStatus.indexOf("Currently unavailable") == -1)?'On Sale1' : 'Sold Out2',
-                            //ItemStatus: itemSalesStatusType == 'N'?'Sold Out' : 'On Sale',
-                            ItemStatus: itemSalesStatus,
 
+
+                            ItemStatus: itemSalesStatusType == 'N'?'Sold Out' : 'On Sale',
+
+                            ItemStatusTest1: itemSalesStatus,
+
+                            ItemPriceTest1:priceTest1,
+                            ItemPriceTest2:priceTest2,
+                            ItemPriceTest3:priceTest3,
+                            ItemPriceTest4:priceTest4,
+                            ItemPriceTest5:priceTest5,
+                            ItemPriceTest6:priceTest6,
+                            ItemPriceTest7:priceTest7,
+                            ItemPriceTest8:priceTest8,
+                            ItemPriceTest9:priceTest9,
+                            ItemPriceTest10:priceTest10,
+                            ItemPriceTest11:priceTest11,
+                            ItemPriceTest12:priceTest12,
+                            ItemPriceTest13:priceTest13,
 
                             BrandName: itemBrand,
                             ItemPrice: itemPrice,
