@@ -60,10 +60,10 @@ async function ProcessItems() {
                 errorScoreDecrement: 0,
             }
         },
-        handlePageFunction: async({ request, page , $posts }) => {
+        handlePageFunction: async({ request, page }) => {
             console.log(request);
             //console.log(page);
-            console.log($posts);
+
 
             if (request.userData.pagetype == "ITEM_PAGE") {
                 console.log(`Processing page ${request.url} ..`);
@@ -72,7 +72,7 @@ async function ProcessItems() {
                 // A function to be evaluated by Puppeteer within the browser context.
                 const pageFunction = (context) => {
                     //const $ = context.jQuery;
-
+                    console.log(context);
 
                     function ProcessData() {
                         const data = [];
