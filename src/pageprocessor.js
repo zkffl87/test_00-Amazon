@@ -782,9 +782,16 @@ async function ProcessItems() {
 
                 const feature_div = await page.$('#alternativeOfferEligibilityMessaging_feature_div'); // 로딩바..
 
+
+
+                console.log("pageFunction::::");
+                console.log(pageFunction);
                 // ---------------------------------- LV 1 ----------------------------------  //
                 const data = await page.$$eval(".s-result-list .a-section", pageFunction); // 함수 실행~
                 // ---------------------------------- LV 1 ----------------------------------  //
+
+                console.log("data!!!!!::::");
+                console.log(data);
 
                 if (optionDebug) console.log("area_1 -> pageFunction end!");
 
