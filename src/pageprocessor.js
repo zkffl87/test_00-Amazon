@@ -27,7 +27,8 @@ async function ProcessItems() {
     console.log("테스트22222");
 
     const requestQueue = await Apify.openRequestQueue();
-    var optionDebug = false; // ZNS test
+    //var optionDebug = false; // ZNS test
+    var optionDebug = true; // ZNS test
     var ForgrundItemOptionData = [];
     // if( optionDebug ) await Apify.pushData({"debug": 1});
 
@@ -61,14 +62,14 @@ async function ProcessItems() {
             }
         },
         handlePageFunction: async({ request, page }) => {
-            console.log(request);
+            //console.log(request);
             //console.log(page);
 
             if (request.userData.pagetype == "ITEM_PAGE") {
                 console.log(`Processing page ${request.url} ..`);
 
                 //await page.waitForSelector('#availability span', { timeout: 30000 });
-                await page.waitFor(5000);
+                //await page.waitFor(5000);
                 // A function to be evaluated by Puppeteer within the browser context.
                 console.log("start1");
                 const pageFunction = (context) => {
@@ -155,17 +156,17 @@ async function ProcessItems() {
 
 
                         var itemSalesStatusType = "";
-                        // if ($("#availability span").length > 0) {
-                        //     itemSalesStatus = $("#availability span").text().trim();
-                        //
-                        //     if(itemSalesStatus.indexOf("Currently unavailable") == -1){
-                        //       //판매상태
-                        //       itemSalesStatusType = "Y";
-                        //     }else{
-                        //       //판매중단 상태
-                        //       itemSalesStatusType = "N";
-                        //     }
-                        // }
+                        if ($("#availability span").length > 0) {
+                            itemSalesStatus = $("#availability span").text().trim();
+
+                            if(itemSalesStatus.indexOf("Currently unavailable") == -1){
+                              //판매상태
+                              itemSalesStatusType = "Y";
+                            }else{
+                              //판매중단 상태
+                              itemSalesStatusType = "N";
+                            }
+                        }
 
 
                         var priceTest1 = "";
@@ -182,18 +183,6 @@ async function ProcessItems() {
                         var priceTest12 = "";
                         var priceTest13 = "";
 
-                        // if ($("#priceblock_ourprice").length > 0) {
-                        //     var tmp = $("#priceblock_ourprice").text();
-                        //     if (tmp.match("-") !== null) {
-                        //         var tmp2 = tmp.split("-");
-                        //         itemPrice = tmp2['1'].replace(/\$|￥|,|From/g, '').trim();
-                        //         priceTest1 = itemPrice;
-                        //     } else {
-                        //         itemPrice = tmp.replace(/\$|￥|,|From/g, '').trim();
-                        //         priceTest2 = itemPrice;
-                        //     }
-                        // }
-
                         if ($("#priceblock_ourprice").length > 0) {
                             var tmp = $("#priceblock_ourprice").text();
                             if (tmp.match("-") !== null) {
@@ -204,19 +193,6 @@ async function ProcessItems() {
                                 itemPrice = tmp.replace(/\$|￥|,|From/g, '').trim();
                                 priceTest2 = itemPrice;
                             }
-                        }else{
-                          itemPrice = "";
-                          if ($("#availability span").length > 0) {
-                              itemSalesStatus = $("#availability span").text().trim();
-
-                              if(itemSalesStatus.indexOf("Currently unavailable") == -1){
-                                //판매상태
-                                itemSalesStatusType = "Y";
-                              }else{
-                                //판매중단 상태
-                                itemSalesStatusType = "N";
-                              }
-                          }
                         }
 
 
@@ -696,6 +672,14 @@ async function ProcessItems() {
                         var urlParams = new URLSearchParams(window.location.href);
                         var amamzon_type = urlParams.get('s');
 
+
+
+                        var aaa = $("#price_inside_buybox").text().replace(/(?:\r\n|\r|\n)/gm, '').replace(/\$|￥|,/g, '').trim();
+                        var bbb = $("#exports_desktop_outOfStock_buybox_message_feature_div span").text().trim();
+
+
+
+
                         data.push({
                             ItemUrl: window.location.href,
                             ItemCode: itemAsin,
@@ -709,6 +693,9 @@ async function ProcessItems() {
                             ItemStatus: itemSalesStatusType == 'N'?'Sold Out' : 'On Sale',
 
                             ItemStatusTest1: itemSalesStatus,
+
+                            ItemTestType1: aaa,
+                            ItemTestType1: bbb,
 
                             ItemPriceTest1:priceTest1,
                             ItemPriceTest2:priceTest2,
