@@ -62,17 +62,20 @@ async function ProcessItems() {
         },
         handlePageFunction: async({ request, page }) => {
             console.log(request);
-            console.log(page);
+            //console.log(page);
 
             if (request.userData.pagetype == "ITEM_PAGE") {
                 console.log(`Processing page ${request.url} ..`);
 
                 //await page.waitForSelector('#availability span', { timeout: 30000 });
-                await page.waitFor(5000);
-                // A function to be evaluated by Puppeteer within the browser context.
-                const pageFunction = (context) => {
 
+                // A function to be evaluated by Puppeteer within the browser context.
+                console.log("start1");
+                const pageFunction = (context) => {
+                    console.log("start2");
+                    await page.waitFor(5000);
                     function ProcessData() {
+                      console.log("start3");
                         const data = [];
 
                         var itemName = $("#productTitle").text();
@@ -728,7 +731,7 @@ async function ProcessItems() {
                     //return dataOutput;
                     return ProcessData();
                 };
-
+                console.log("start4");
 
                 // 가격 찾기 유틸
                 async function priceCatch(fv_name, op_name, opt_match) {
@@ -800,7 +803,7 @@ async function ProcessItems() {
 
                     }
                 }
-
+                console.log("start5");
                 const saveScreen = async(page, key = 'debug-screen') => {
                     const screenshotBuffer = await page.screenshot({ fullPage: true });
                     await Apify.setValue(key, screenshotBuffer, { contentType: 'image/png' });
@@ -877,7 +880,7 @@ async function ProcessItems() {
                     console.log(data);
                 }
 
-
+                console.log("start6");
 
 
                 // 로딩바구현
@@ -1756,7 +1759,7 @@ async function ProcessItems() {
                     }
                 }
 
-
+                console.log("start7");
                 //console.log(data[0].ItemOptionData);
                 // return false;
 
