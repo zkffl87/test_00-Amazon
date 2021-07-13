@@ -68,12 +68,12 @@ async function ProcessItems() {
                 console.log(`Processing page ${request.url} ..`);
 
                 //await page.waitForSelector('#availability span', { timeout: 30000 });
-
+                await page.waitFor(5000);
                 // A function to be evaluated by Puppeteer within the browser context.
                 console.log("start1");
                 const pageFunction = (context) => {
                     console.log("start2");
-                    await page.waitFor(5000);
+
                     function ProcessData() {
                       console.log("start3");
                         const data = [];
