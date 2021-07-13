@@ -1976,13 +1976,17 @@ async function ProcessPhrase(startUrl, getPaging, pagenum, npage) {
 
             //ZNS  추가  아마존 일반상품 Fresh 상품 구분
             var tmp = new URL(request.url);
+            console.log("tmp:::::::::::::>>>"+tmp);
             var amamzon_type = tmp.searchParams.getAll("i"); // 추가됨..
             var country_code_tmp = tmp.host.split('.');
+
+            console.log("amamzon_type:::::::::::::>>>"+amamzon_type);
+            console.log("country_code_tmp:::::::::::::>>>"+country_code_tmp);
 
             //  https://www.amazon.de 독일 url
             //  https://www.amazon.it  이탈리아 url
             //  https://www.amazon.sg  싱가폴 url
-
+            console.log("country_code_tmp[3]:::::::::::::>>>"+country_code_tmp['3']);
             var country_code = "us"; // 디폴트 미국
 
             if (country_code_tmp['3'] == 'jp') {
