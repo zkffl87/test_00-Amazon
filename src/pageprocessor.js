@@ -695,7 +695,7 @@ async function ProcessItems() {
                             ItemStatusTest1: itemSalesStatus,
 
                             ItemTestType1: aaa,
-                            ItemTestType1: bbb,
+                            ItemTestType2: bbb,
 
                             ItemPriceTest1:priceTest1,
                             ItemPriceTest2:priceTest2,
