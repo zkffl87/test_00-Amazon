@@ -67,7 +67,8 @@ async function ProcessItems() {
             if (request.userData.pagetype == "ITEM_PAGE") {
                 console.log(`Processing page ${request.url} ..`);
 
-
+                //await page.waitForSelector('#availability span', { timeout: 30000 });
+                await page.waitFor(5000);
                 // A function to be evaluated by Puppeteer within the browser context.
                 const pageFunction = (context) => {
 
