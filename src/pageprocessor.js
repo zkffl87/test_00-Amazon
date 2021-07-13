@@ -155,17 +155,17 @@ async function ProcessItems() {
 
 
                         var itemSalesStatusType = "";
-                        if ($("#availability span").length > 0) {
-                            itemSalesStatus = $("#availability span").text().trim();
-
-                            if(itemSalesStatus.indexOf("Currently unavailable") == -1){
-                              //판매상태
-                              itemSalesStatusType = "Y";
-                            }else{
-                              //판매중단 상태
-                              itemSalesStatusType = "N";
-                            }
-                        }
+                        // if ($("#availability span").length > 0) {
+                        //     itemSalesStatus = $("#availability span").text().trim();
+                        //
+                        //     if(itemSalesStatus.indexOf("Currently unavailable") == -1){
+                        //       //판매상태
+                        //       itemSalesStatusType = "Y";
+                        //     }else{
+                        //       //판매중단 상태
+                        //       itemSalesStatusType = "N";
+                        //     }
+                        // }
 
 
                         var priceTest1 = "";
@@ -182,6 +182,18 @@ async function ProcessItems() {
                         var priceTest12 = "";
                         var priceTest13 = "";
 
+                        // if ($("#priceblock_ourprice").length > 0) {
+                        //     var tmp = $("#priceblock_ourprice").text();
+                        //     if (tmp.match("-") !== null) {
+                        //         var tmp2 = tmp.split("-");
+                        //         itemPrice = tmp2['1'].replace(/\$|￥|,|From/g, '').trim();
+                        //         priceTest1 = itemPrice;
+                        //     } else {
+                        //         itemPrice = tmp.replace(/\$|￥|,|From/g, '').trim();
+                        //         priceTest2 = itemPrice;
+                        //     }
+                        // }
+
                         if ($("#priceblock_ourprice").length > 0) {
                             var tmp = $("#priceblock_ourprice").text();
                             if (tmp.match("-") !== null) {
@@ -192,6 +204,19 @@ async function ProcessItems() {
                                 itemPrice = tmp.replace(/\$|￥|,|From/g, '').trim();
                                 priceTest2 = itemPrice;
                             }
+                        }else{
+                          itemPrice = "";
+                          if ($("#availability span").length > 0) {
+                              itemSalesStatus = $("#availability span").text().trim();
+
+                              if(itemSalesStatus.indexOf("Currently unavailable") == -1){
+                                //판매상태
+                                itemSalesStatusType = "Y";
+                              }else{
+                                //판매중단 상태
+                                itemSalesStatusType = "N";
+                              }
+                          }
                         }
 
 
